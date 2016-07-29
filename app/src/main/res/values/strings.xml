@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FiveThreeOne</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_plan">PlanActivity</string>
+    <string name="training_max_textbox">Training Maxes</string>
+
+    <string-array name="weeks_array">
+        <item>Five</item>
+        <item>Three</item>
+        <item>One</item>
+        <item>Deload</item>
+    </string-array>
+    <string name="title_activity_lift">LiftActivity</string>
+</resources>

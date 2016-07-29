@@ -1,0 +1,23 @@
+Calculator
+Input: Maxs
+Output: Schedule
+
+Plan
+* 4 days [CHEST, BACK, SHOULDERS, LEGS]
+* For each day generate:
+    * type of day [5, 3, 1*]
+    * Working weight
+* DELOAD: every other cycle, boolean
+*
+
+
+Schedule
+* Set of Plans
+* date range
+* num of weeks
+* end goal
+
+
+Schedule Generation
+
+
