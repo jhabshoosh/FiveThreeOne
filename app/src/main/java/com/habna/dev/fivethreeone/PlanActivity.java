@@ -8,9 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.habna.dev.fivethreeone.Models.Lift;
 import com.habna.dev.fivethreeone.Models.Plan;
+
+import org.w3c.dom.Text;
 
 public class PlanActivity extends AppCompatActivity {
 
@@ -21,14 +24,23 @@ public class PlanActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_plan);
 
-    Intent intent = getIntent();
-
-//    plan = (Plan) intent.getSerializableExtra("Plan");
+    TextView weekTypeText = (TextView) findViewById(R.id.weekTypeText);
+    weekTypeText.setText(weekTypeToString(plan.getWeekType()) + " WEEK");
 
     Button chestButton = (Button) findViewById(R.id.chestButton);
     Button backButton = (Button) findViewById(R.id.backButton);
     Button shouldersButton = (Button) findViewById(R.id.shouldersButton);
     Button legsButton = (Button) findViewById(R.id.legsButton);
+
+    final Button bumpWeekButton = (Button) findViewById(R.id.bumpWeekButton);
+    bumpWeekButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        plan.bumpWeek();
+        finish();
+        startActivity(getIntent());
+      }
+    });
 
     chestButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -64,5 +76,20 @@ public class PlanActivity extends AppCompatActivity {
     Intent intent = new Intent(PlanActivity.this, LiftActivity.class);
     startActivity(intent);
   }
+
+  private String weekTypeToString(Lift.WEEK_TYPE weekType)    {
+    switch (weekType)   {
+      case FIVE:
+        return "FIVE";
+      case THREE:
+        return "THREE";
+      case ONE:
+        return "ONE";
+      case DELOAD:
+        return "DELOAD";
+    }
+    return null;
+  }
+
 
 }

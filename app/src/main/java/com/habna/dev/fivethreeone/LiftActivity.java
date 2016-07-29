@@ -22,8 +22,8 @@ public class LiftActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_lift);
 
-    Intent intent = getIntent();
-//    lift = (Lift) intent.getSerializableExtra("Lift");
+    TextView trainingMaxText = (TextView) findViewById(R.id.trainingMaxText);
+    trainingMaxText.setText("TRAINING MAX: " + lift.getTrainingMax());
 
     TextView set1TextView = (TextView) findViewById(R.id.set1Text);
     TextView set2TextView = (TextView) findViewById(R.id.set2Text);

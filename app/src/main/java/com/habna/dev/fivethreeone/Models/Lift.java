@@ -1,7 +1,5 @@
 package com.habna.dev.fivethreeone.Models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Pair;
 
 import java.io.Serializable;

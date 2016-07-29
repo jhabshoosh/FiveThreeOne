@@ -11,4 +11,5 @@
         <item>Deload</item>
     </string-array>
     <string name="title_activity_lift">LiftActivity</string>
+    <string name="title_activity_in_progress">InProgress</string>
 </resources>

@@ -5,6 +5,13 @@
               android:orientation="vertical">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/weekTypeText"
+        android:layout_gravity="center_horizontal"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,5 +37,12 @@
         android:layout_height="wrap_content"
         android:text="Legs"
         android:id="@+id/legsButton"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bump up week"
+        android:id="@+id/bumpWeekButton"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
