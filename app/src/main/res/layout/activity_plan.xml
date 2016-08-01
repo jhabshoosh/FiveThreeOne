@@ -1,48 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/weekTypeText"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:text="Chest"
         android:id="@+id/chestButton"
-        android:layout_gravity="center_vertical"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/chestText"
+        android:textSize="18sp"
+        android:text="testchest"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="52dp"
+        android:layout_toRightOf="@+id/chestButton"
+        android:layout_toEndOf="@+id/chestButton"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:text="Back"
-        android:id="@+id/backButton"/>
+        android:id="@+id/backButton"
+        android:layout_above="@+id/shouldersButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="52dp"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/backText"
+        android:textSize="18sp"
+        android:text="testback"
+        android:layout_toRightOf="@id/backButton"
+        android:layout_toEndOf="@id/backButton"
+        android:layout_marginTop="143dp"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:text="Shoulders"
         android:id="@+id/shouldersButton"
-        android:layout_gravity="bottom"/>
+        android:layout_gravity="bottom"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/shouldersText"
+        android:textSize="18sp"
+        android:text="testshulds"
+        android:layout_marginTop="40dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/shouldersButton"
+        android:layout_toEndOf="@+id/shouldersButton"/>
+
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:text="Legs"
-        android:id="@+id/legsButton"/>
+        android:id="@+id/legsButton"
+        android:layout_column="0"
+        android:layout_above="@+id/bumpWeekButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="94dp"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/legsText"
+        android:textSize="18sp"
+        android:text="testlegs"
+        android:layout_alignBottom="@+id/legsButton"
+        android:layout_toRightOf="@+id/legsButton"
+        android:layout_toEndOf="@+id/legsButton"
+        android:layout_marginBottom="14dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bump up week"
         android:id="@+id/bumpWeekButton"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_column="8"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
-</LinearLayout>
+</RelativeLayout>

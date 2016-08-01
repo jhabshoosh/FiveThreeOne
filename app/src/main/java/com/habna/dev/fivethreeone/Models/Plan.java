@@ -13,29 +13,23 @@ public class Plan implements Serializable {
 
   private List<Lift> lifts;
   private Lift.WEEK_TYPE weekType;
-  private Map<Lift.BODY_TYPE, Double> oneRepMaxes;
   private Map<Lift.BODY_TYPE, Double> trainingMaxes;
 
   public Plan(Lift.WEEK_TYPE weekType, Map<Lift.BODY_TYPE, Double> oneRepMaxes, final boolean isTrainingMaxes) {
-    initPlan(weekType, oneRepMaxes, isTrainingMaxes);
-    initLifts(isTrainingMaxes);
+    init(weekType, oneRepMaxes, isTrainingMaxes);
   }
 
   private void initPlan(Lift.WEEK_TYPE weekType, Map<Lift.BODY_TYPE, Double> oneRepMaxes, boolean isTrainingMaxes) {
     this.weekType = weekType;
-    this.oneRepMaxes = oneRepMaxes;
-    if (isTrainingMaxes)  {
-      trainingMaxes = new HashMap<>(trainingMaxes);
-    }else {
-      trainingMaxes = new HashMap<>();
-      trainingMaxes.put(Lift.BODY_TYPE.CHEST, .9 * oneRepMaxes.get(Lift.BODY_TYPE.CHEST));
-      trainingMaxes.put(Lift.BODY_TYPE.BACK, .9 * oneRepMaxes.get(Lift.BODY_TYPE.BACK));
-      trainingMaxes.put(Lift.BODY_TYPE.SHOULDERS, .9 * oneRepMaxes.get(Lift.BODY_TYPE.SHOULDERS));
-      trainingMaxes.put(Lift.BODY_TYPE.LEGS, .9 * oneRepMaxes.get(Lift.BODY_TYPE.LEGS));
-    }
+    trainingMaxes = new HashMap<>();
+    double multiplier = isTrainingMaxes ? 1 : .9;
+    trainingMaxes.put(Lift.BODY_TYPE.CHEST, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.CHEST));
+    trainingMaxes.put(Lift.BODY_TYPE.BACK, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.BACK));
+    trainingMaxes.put(Lift.BODY_TYPE.SHOULDERS, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.SHOULDERS));
+    trainingMaxes.put(Lift.BODY_TYPE.LEGS, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.LEGS));
   }
 
-  private void initLifts(final boolean isTrainingMaxes)  {
+  private void initLifts()  {
     lifts = new ArrayList<>();
     lifts.add(new Lift(Lift.BODY_TYPE.CHEST, weekType, trainingMaxes.get(Lift.BODY_TYPE.CHEST)));
     lifts.add(new Lift(Lift.BODY_TYPE.BACK, weekType, trainingMaxes.get(Lift.BODY_TYPE.BACK)));
@@ -52,24 +46,12 @@ public class Plan implements Serializable {
     return null;
   }
 
-  public List<Lift> getLifts() {
-    return lifts;
-  }
-
-  public Lift.WEEK_TYPE getWeekType() {
-    return weekType;
-  }
-
-  public Map<Lift.BODY_TYPE, Double> getOneRepMaxes() {
-    return oneRepMaxes;
-  }
-
   public Map<Lift.BODY_TYPE, Double> getTrainingMaxes() {
     return trainingMaxes;
   }
 
-  public void setTrainingMaxes(Map<Lift.BODY_TYPE, Double> trainingMaxes) {
-    this.trainingMaxes = trainingMaxes;
+  public Lift.WEEK_TYPE getWeekType() {
+    return weekType;
   }
 
   public void bumpWeek()  {
@@ -77,8 +59,12 @@ public class Plan implements Serializable {
     if (Lift.WEEK_TYPE.FIVE.equals(nextWeek)) {
       bumpMaxes();
     }
-    initPlan(nextWeek, trainingMaxes, true);
-    initLifts(true);
+    init(nextWeek, trainingMaxes, true);
+  }
+
+  private void init(Lift.WEEK_TYPE nextWeek, Map<Lift.BODY_TYPE, Double> trainingMaxes, boolean isTrainingMaxes) {
+    initPlan(nextWeek, trainingMaxes, isTrainingMaxes);
+    initLifts();
   }
 
   private void bumpMaxes()  {
@@ -104,5 +90,9 @@ public class Plan implements Serializable {
         return Lift.WEEK_TYPE.FIVE;
     }
     return null;
+  }
+
+  public String getTrainingMaxDisplay(Lift.BODY_TYPE bodyType) {
+    return "Training Max: " + trainingMaxes.get(bodyType).toString() + " lbs.";
   }
 }

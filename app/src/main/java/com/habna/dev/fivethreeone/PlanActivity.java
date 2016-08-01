@@ -15,6 +15,8 @@ import com.habna.dev.fivethreeone.Models.Plan;
 
 import org.w3c.dom.Text;
 
+import java.util.Map;
+
 public class PlanActivity extends AppCompatActivity {
 
   public static Plan plan;
@@ -27,10 +29,20 @@ public class PlanActivity extends AppCompatActivity {
     TextView weekTypeText = (TextView) findViewById(R.id.weekTypeText);
     weekTypeText.setText(weekTypeToString(plan.getWeekType()) + " WEEK");
 
-    Button chestButton = (Button) findViewById(R.id.chestButton);
-    Button backButton = (Button) findViewById(R.id.backButton);
-    Button shouldersButton = (Button) findViewById(R.id.shouldersButton);
-    Button legsButton = (Button) findViewById(R.id.legsButton);
+    TextView chestText = (TextView) findViewById(R.id.chestText);
+    TextView backText = (TextView) findViewById(R.id.backText);
+    TextView shouldersText = (TextView) findViewById(R.id.shouldersText);
+    TextView legsText = (TextView) findViewById(R.id.legsText);
+
+    chestText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.CHEST));
+    backText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.BACK));
+    shouldersText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.SHOULDERS));
+    legsText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.LEGS));
+
+    final Button chestButton = (Button) findViewById(R.id.chestButton);
+    final Button backButton = (Button) findViewById(R.id.backButton);
+    final Button shouldersButton = (Button) findViewById(R.id.shouldersButton);
+    final Button legsButton = (Button) findViewById(R.id.legsButton);
 
     final Button bumpWeekButton = (Button) findViewById(R.id.bumpWeekButton);
     bumpWeekButton.setOnClickListener(new View.OnClickListener() {
