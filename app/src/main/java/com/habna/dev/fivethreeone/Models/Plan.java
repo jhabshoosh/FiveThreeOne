@@ -114,4 +114,9 @@ public class Plan implements Serializable {
   public boolean doesHeEvenLift(Lift.BODY_TYPE bodyType)  {
     return trainingMaxes.containsKey(bodyType);
   }
+
+  public boolean doesLift() {
+    return doesHeEvenLift(Lift.BODY_TYPE.CHEST) || doesHeEvenLift(Lift.BODY_TYPE.BACK) ||
+      doesHeEvenLift(Lift.BODY_TYPE.SHOULDERS) || doesHeEvenLift(Lift.BODY_TYPE.LEGS);
+  }
 }

@@ -2,6 +2,8 @@ package com.habna.dev.fivethreeone;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,9 +14,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.habna.dev.fivethreeone.Models.Lift;
 import com.habna.dev.fivethreeone.Models.Plan;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         final CheckBox checkBox = (CheckBox) findViewById(R.id.trainingMaxCheckBox);
 
-        final Button button = (Button) findViewById(R.id.submitButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button submitButton = (Button) findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Map<Lift.BODY_TYPE, Double> oneRepMaxes = new HashMap<>();
@@ -94,18 +99,24 @@ public class MainActivity extends AppCompatActivity {
                 Lift.WEEK_TYPE weekType;
                 if ("FIVE".equals(weekStr)) {
                     weekType = Lift.WEEK_TYPE.FIVE;
-                }else if ("THREE".equals(weekStr))  {
+                } else if ("THREE".equals(weekStr)) {
                     weekType = Lift.WEEK_TYPE.THREE;
-                }else if ("ONE".equals(weekStr))    {
+                } else if ("ONE".equals(weekStr)) {
                     weekType = Lift.WEEK_TYPE.ONE;
-                }else if ("DELOAD".equals(weekStr)) {
+                } else if ("DELOAD".equals(weekStr)) {
                     weekType = Lift.WEEK_TYPE.DELOAD;
-                }else   {
+                } else {
                     throw new RuntimeException("Impossible week type on spinner");
                 }
                 Plan plan = new Plan(weekType, oneRepMaxes, checkBox.isChecked());
                 saveTrainingMaxes(weekStr);
-                displayPlan(plan);
+                if (plan.doesLift()) {
+                    displayPlan(plan);
+                } else {
+                    final TextView badInputText = (TextView) findViewById(R.id.badInputText);
+                    badInputText.setText("Do you even lift?");
+                    badInputText.setTextColor(Color.RED);
+                }
             }
         });
 
