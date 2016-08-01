@@ -1,5 +1,7 @@
 package com.habna.dev.fivethreeone.Models;
 
+import android.support.annotation.IntegerRes;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,22 +21,38 @@ public class Plan implements Serializable {
     init(weekType, oneRepMaxes, isTrainingMaxes);
   }
 
-  private void initPlan(Lift.WEEK_TYPE weekType, Map<Lift.BODY_TYPE, Double> oneRepMaxes, boolean isTrainingMaxes) {
+  private void initPlan(Lift.WEEK_TYPE weekType, final Map<Lift.BODY_TYPE, Double> oneRepMaxes, boolean isTrainingMaxes) {
     this.weekType = weekType;
     trainingMaxes = new HashMap<>();
     double multiplier = isTrainingMaxes ? 1 : .9;
-    trainingMaxes.put(Lift.BODY_TYPE.CHEST, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.CHEST));
-    trainingMaxes.put(Lift.BODY_TYPE.BACK, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.BACK));
-    trainingMaxes.put(Lift.BODY_TYPE.SHOULDERS, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.SHOULDERS));
-    trainingMaxes.put(Lift.BODY_TYPE.LEGS, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.LEGS));
+    if (oneRepMaxes.containsKey(Lift.BODY_TYPE.CHEST)) {
+      trainingMaxes.put(Lift.BODY_TYPE.CHEST, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.CHEST));
+    }
+    if (oneRepMaxes.containsKey(Lift.BODY_TYPE.BACK)) {
+      trainingMaxes.put(Lift.BODY_TYPE.BACK, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.BACK));
+    }
+    if (oneRepMaxes.containsKey(Lift.BODY_TYPE.SHOULDERS)) {
+      trainingMaxes.put(Lift.BODY_TYPE.SHOULDERS, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.SHOULDERS));
+    }
+    if (oneRepMaxes.containsKey(Lift.BODY_TYPE.LEGS)) {
+      trainingMaxes.put(Lift.BODY_TYPE.LEGS, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.LEGS));
+    }
   }
 
   private void initLifts()  {
     lifts = new ArrayList<>();
-    lifts.add(new Lift(Lift.BODY_TYPE.CHEST, weekType, trainingMaxes.get(Lift.BODY_TYPE.CHEST)));
-    lifts.add(new Lift(Lift.BODY_TYPE.BACK, weekType, trainingMaxes.get(Lift.BODY_TYPE.BACK)));
-    lifts.add(new Lift(Lift.BODY_TYPE.SHOULDERS, weekType, trainingMaxes.get(Lift.BODY_TYPE.SHOULDERS)));
-    lifts.add(new Lift(Lift.BODY_TYPE.LEGS, weekType, trainingMaxes.get(Lift.BODY_TYPE.LEGS)));
+    if (trainingMaxes.containsKey(Lift.BODY_TYPE.CHEST)) {
+      lifts.add(new Lift(Lift.BODY_TYPE.CHEST, weekType, trainingMaxes.get(Lift.BODY_TYPE.CHEST)));
+    }
+    if (trainingMaxes.containsKey(Lift.BODY_TYPE.BACK)) {
+      lifts.add(new Lift(Lift.BODY_TYPE.BACK, weekType, trainingMaxes.get(Lift.BODY_TYPE.BACK)));
+    }
+    if (trainingMaxes.containsKey(Lift.BODY_TYPE.SHOULDERS)) {
+      lifts.add(new Lift(Lift.BODY_TYPE.SHOULDERS, weekType, trainingMaxes.get(Lift.BODY_TYPE.SHOULDERS)));
+    }
+    if (trainingMaxes.containsKey(Lift.BODY_TYPE.LEGS)) {
+      lifts.add(new Lift(Lift.BODY_TYPE.LEGS, weekType, trainingMaxes.get(Lift.BODY_TYPE.LEGS)));
+    }
   }
 
   public Lift getLift(Lift.BODY_TYPE bodyType)  {
@@ -44,10 +62,6 @@ public class Plan implements Serializable {
       }
     }
     return null;
-  }
-
-  public Map<Lift.BODY_TYPE, Double> getTrainingMaxes() {
-    return trainingMaxes;
   }
 
   public Lift.WEEK_TYPE getWeekType() {
@@ -62,7 +76,8 @@ public class Plan implements Serializable {
     init(nextWeek, trainingMaxes, true);
   }
 
-  private void init(Lift.WEEK_TYPE nextWeek, Map<Lift.BODY_TYPE, Double> trainingMaxes, boolean isTrainingMaxes) {
+  private void init(Lift.WEEK_TYPE nextWeek, Map<Lift.BODY_TYPE, Double> trainingMaxes,
+                    boolean isTrainingMaxes) {
     initPlan(nextWeek, trainingMaxes, isTrainingMaxes);
     initLifts();
   }
@@ -94,5 +109,9 @@ public class Plan implements Serializable {
 
   public String getTrainingMaxDisplay(Lift.BODY_TYPE bodyType) {
     return "Training Max: " + trainingMaxes.get(bodyType).toString() + " lbs.";
+  }
+
+  public boolean doesHeEvenLift(Lift.BODY_TYPE bodyType)  {
+    return trainingMaxes.containsKey(bodyType);
   }
 }

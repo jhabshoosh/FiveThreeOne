@@ -34,15 +34,34 @@ public class PlanActivity extends AppCompatActivity {
     TextView shouldersText = (TextView) findViewById(R.id.shouldersText);
     TextView legsText = (TextView) findViewById(R.id.legsText);
 
-    chestText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.CHEST));
-    backText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.BACK));
-    shouldersText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.SHOULDERS));
-    legsText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.LEGS));
-
     final Button chestButton = (Button) findViewById(R.id.chestButton);
     final Button backButton = (Button) findViewById(R.id.backButton);
     final Button shouldersButton = (Button) findViewById(R.id.shouldersButton);
     final Button legsButton = (Button) findViewById(R.id.legsButton);
+
+    if (plan.doesHeEvenLift(Lift.BODY_TYPE.CHEST)) {
+      chestText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.CHEST));
+    }else {
+      chestButton.setVisibility(View.GONE);
+    }
+
+    if (plan.doesHeEvenLift(Lift.BODY_TYPE.BACK))  {
+      backText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.BACK));
+    }else {
+      backButton.setVisibility(View.GONE);
+    }
+
+    if (plan.doesHeEvenLift(Lift.BODY_TYPE.SHOULDERS)) {
+      shouldersText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.SHOULDERS));
+    }else {
+      shouldersButton.setVisibility(View.GONE);
+    }
+
+    if (plan.doesHeEvenLift(Lift.BODY_TYPE.LEGS))  {
+      legsText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.LEGS));
+    }else {
+      legsButton.setVisibility(View.GONE);
+    }
 
     final Button bumpWeekButton = (Button) findViewById(R.id.bumpWeekButton);
     bumpWeekButton.setOnClickListener(new View.OnClickListener() {

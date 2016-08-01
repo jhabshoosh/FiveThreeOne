@@ -65,21 +65,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Map<Lift.BODY_TYPE, Double> oneRepMaxes = new HashMap<>();
+
                 EditText chest = (EditText) findViewById(R.id.chestOneRepMax);
-                chestMax = Integer.valueOf(chest.getText().toString());
-                oneRepMaxes.put(Lift.BODY_TYPE.CHEST, (double) chestMax);
+                chestMax = validateMax(chest.getText().toString());
+                if (chestMax != -1) {
+                    oneRepMaxes.put(Lift.BODY_TYPE.CHEST, (double) chestMax);
+                }
 
                 EditText back = (EditText) findViewById(R.id.backOneRepMax);
-                backMax = Integer.valueOf(back.getText().toString());
-                oneRepMaxes.put(Lift.BODY_TYPE.BACK, (double) backMax);
+                backMax = validateMax(back.getText().toString());
+                if (backMax != -1) {
+                    oneRepMaxes.put(Lift.BODY_TYPE.BACK, (double) backMax);
+                }
 
                 EditText shoulders = (EditText) findViewById(R.id.shouldersOneRepMax);
-                shouldersMax = Integer.valueOf(shoulders.getText().toString());
-                oneRepMaxes.put(Lift.BODY_TYPE.SHOULDERS, (double) shouldersMax);
+                shouldersMax = validateMax(shoulders.getText().toString());
+                if (shouldersMax != -1) {
+                    oneRepMaxes.put(Lift.BODY_TYPE.SHOULDERS, (double) shouldersMax);
+                }
 
                 EditText legs = (EditText) findViewById(R.id.legsOneRepMax);
-                legsMax = Integer.valueOf(legs.getText().toString());
-                oneRepMaxes.put(Lift.BODY_TYPE.LEGS, (double) legsMax);
+                legsMax = validateMax(legs.getText().toString());
+                if (legsMax != -1) {
+                    oneRepMaxes.put(Lift.BODY_TYPE.LEGS, (double) legsMax);
+                }
 
                 String weekStr = weekSpinner.getSelectedItem().toString().toUpperCase();
                 Lift.WEEK_TYPE weekType;
@@ -165,5 +174,15 @@ public class MainActivity extends AppCompatActivity {
             return Lift.WEEK_TYPE.DELOAD;
         }
         return null;
+    }
+
+    private Integer validateMax(String max) {
+        Integer result;
+        try {
+            result = Integer.valueOf(max);
+        }   catch(NumberFormatException nfe)   {
+            result = Integer.valueOf(-1);
+        }
+        return result;
     }
 }

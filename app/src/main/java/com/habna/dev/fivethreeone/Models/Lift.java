@@ -32,9 +32,6 @@ public class Lift implements Serializable {
     DELOAD
   }
 
-  public Lift() {
-  }
-
   public Lift(BODY_TYPE bodyType, WEEK_TYPE dayType, double trainingMax) {
     this.bodyType = bodyType;
     this.weekType = dayType;
@@ -44,26 +41,6 @@ public class Lift implements Serializable {
 
   public BODY_TYPE getBodyType() {
     return bodyType;
-  }
-
-  public void setBodyType(BODY_TYPE bodyType) {
-    this.bodyType = bodyType;
-  }
-
-  public WEEK_TYPE getDayType() {
-    return weekType;
-  }
-
-  public void setDayType(WEEK_TYPE dayType) {
-    this.weekType = dayType;
-  }
-
-  public double getTrainingMax() {
-    return trainingMax;
-  }
-
-  public void setTrainingMax(double trainingMax) {
-    this.trainingMax = trainingMax;
   }
 
   private void calculateSets()  {
@@ -146,4 +123,7 @@ public class Lift implements Serializable {
     return nearestBase;
   }
 
+  public double getTrainingMax() {
+    return trainingMax;
+  }
 }
