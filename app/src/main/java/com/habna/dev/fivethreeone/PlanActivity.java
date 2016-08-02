@@ -1,6 +1,7 @@
 package com.habna.dev.fivethreeone;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,25 +36,33 @@ public class PlanActivity extends AppCompatActivity {
     if (plan.doesHeEvenLift(Lift.BODY_TYPE.CHEST)) {
       chestText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.CHEST));
     }else {
-      chestButton.setVisibility(View.GONE);
+      chestText.setText(R.string.no_chest);
+      chestText.setTextColor(Color.RED);
+      chestButton.setEnabled(false);
     }
 
     if (plan.doesHeEvenLift(Lift.BODY_TYPE.BACK))  {
       backText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.BACK));
     }else {
-      backButton.setVisibility(View.GONE);
+      backText.setText(R.string.no_back);
+      backText.setTextColor(Color.RED);
+      backButton.setEnabled(false);
     }
 
     if (plan.doesHeEvenLift(Lift.BODY_TYPE.SHOULDERS)) {
       shouldersText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.SHOULDERS));
     }else {
-      shouldersButton.setVisibility(View.GONE);
+      shouldersText.setText(R.string.no_shoulders);
+      shouldersText.setTextColor(Color.RED);
+      shouldersButton.setEnabled(false);
     }
 
     if (plan.doesHeEvenLift(Lift.BODY_TYPE.LEGS))  {
       legsText.setText(plan.getTrainingMaxDisplay(Lift.BODY_TYPE.LEGS));
     }else {
-      legsButton.setVisibility(View.GONE);
+      legsText.setText(R.string.no_legs);
+      legsText.setTextColor(Color.RED);
+      legsButton.setEnabled(false);
     }
 
     final Button bumpWeekButton = (Button) findViewById(R.id.bumpWeekButton);
