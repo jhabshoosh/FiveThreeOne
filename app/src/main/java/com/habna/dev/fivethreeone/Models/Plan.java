@@ -91,14 +91,20 @@ public class Plan implements Serializable {
   }
 
   private void bumpMaxes()  {
+    boolean needToConvert = !lbs;
+    if (needToConvert) {
+      switchUnits();
+    }
     for (Lift.BODY_TYPE key : trainingMaxes.keySet())  {
       Double value = trainingMaxes.get(key);
-      double increment = lbs ? 5 : lbsToKg;
       if (Lift.BODY_TYPE.CHEST.equals(key) || Lift.BODY_TYPE.SHOULDERS.equals(key)) {
-        trainingMaxes.put(key, roundMax(value + increment));
+        trainingMaxes.put(key, roundMax(value + 5));
       }else {
-        trainingMaxes.put(key, roundMax(value + 2*increment));
+        trainingMaxes.put(key, roundMax(value + 10));
       }
+    }
+    if (needToConvert) {
+      switchUnits();
     }
   }
 
