@@ -1,6 +1,6 @@
 package com.habna.dev.fivethreeone.Models;
 
-import android.support.annotation.IntegerRes;
+import com.habna.dev.fivethreeone.MainActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,8 +16,12 @@ public class Plan implements Serializable {
   private List<Lift> lifts;
   private Lift.WEEK_TYPE weekType;
   private Map<Lift.BODY_TYPE, Double> trainingMaxes;
+  private boolean lbs;
 
-  public Plan(Lift.WEEK_TYPE weekType, Map<Lift.BODY_TYPE, Double> oneRepMaxes, final boolean isTrainingMaxes) {
+  public final static double lbsToKg = 2.2046226218;
+
+  public Plan(Lift.WEEK_TYPE weekType, Map<Lift.BODY_TYPE, Double> oneRepMaxes, final boolean isTrainingMaxes, final boolean unit) {
+    lbs = unit;
     init(weekType, oneRepMaxes, isTrainingMaxes);
   }
 
@@ -26,16 +30,16 @@ public class Plan implements Serializable {
     trainingMaxes = new HashMap<>();
     double multiplier = isTrainingMaxes ? 1 : .9;
     if (oneRepMaxes.containsKey(Lift.BODY_TYPE.CHEST)) {
-      trainingMaxes.put(Lift.BODY_TYPE.CHEST, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.CHEST));
+      trainingMaxes.put(Lift.BODY_TYPE.CHEST, roundMax(multiplier * oneRepMaxes.get(Lift.BODY_TYPE.CHEST)));
     }
     if (oneRepMaxes.containsKey(Lift.BODY_TYPE.BACK)) {
-      trainingMaxes.put(Lift.BODY_TYPE.BACK, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.BACK));
+      trainingMaxes.put(Lift.BODY_TYPE.BACK, roundMax(multiplier * oneRepMaxes.get(Lift.BODY_TYPE.BACK)));
     }
     if (oneRepMaxes.containsKey(Lift.BODY_TYPE.SHOULDERS)) {
-      trainingMaxes.put(Lift.BODY_TYPE.SHOULDERS, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.SHOULDERS));
+      trainingMaxes.put(Lift.BODY_TYPE.SHOULDERS, roundMax(multiplier * oneRepMaxes.get(Lift.BODY_TYPE.SHOULDERS)));
     }
     if (oneRepMaxes.containsKey(Lift.BODY_TYPE.LEGS)) {
-      trainingMaxes.put(Lift.BODY_TYPE.LEGS, multiplier * oneRepMaxes.get(Lift.BODY_TYPE.LEGS));
+      trainingMaxes.put(Lift.BODY_TYPE.LEGS, roundMax(multiplier * oneRepMaxes.get(Lift.BODY_TYPE.LEGS)));
     }
   }
 
@@ -53,6 +57,10 @@ public class Plan implements Serializable {
     if (trainingMaxes.containsKey(Lift.BODY_TYPE.LEGS)) {
       lifts.add(new Lift(Lift.BODY_TYPE.LEGS, weekType, trainingMaxes.get(Lift.BODY_TYPE.LEGS)));
     }
+  }
+
+  public boolean isLbs() {
+    return lbs;
   }
 
   public Lift getLift(Lift.BODY_TYPE bodyType)  {
@@ -85,10 +93,11 @@ public class Plan implements Serializable {
   private void bumpMaxes()  {
     for (Lift.BODY_TYPE key : trainingMaxes.keySet())  {
       Double value = trainingMaxes.get(key);
+      double increment = lbs ? 5 : lbsToKg;
       if (Lift.BODY_TYPE.CHEST.equals(key) || Lift.BODY_TYPE.SHOULDERS.equals(key)) {
-        trainingMaxes.put(key, value + 5);
+        trainingMaxes.put(key, roundMax(value + increment));
       }else {
-        trainingMaxes.put(key, value + 10);
+        trainingMaxes.put(key, roundMax(value + 2*increment));
       }
     }
   }
@@ -108,7 +117,7 @@ public class Plan implements Serializable {
   }
 
   public String getTrainingMaxDisplay(Lift.BODY_TYPE bodyType) {
-    return "Training Max: " + trainingMaxes.get(bodyType).toString() + " lbs.";
+    return "Training Max: " + trainingMaxes.get(bodyType).toString() + (lbs ? " lbs" : " kg");
   }
 
   public boolean doesHeEvenLift(Lift.BODY_TYPE bodyType)  {
@@ -118,5 +127,33 @@ public class Plan implements Serializable {
   public boolean doesLift() {
     return doesHeEvenLift(Lift.BODY_TYPE.CHEST) || doesHeEvenLift(Lift.BODY_TYPE.BACK) ||
       doesHeEvenLift(Lift.BODY_TYPE.SHOULDERS) || doesHeEvenLift(Lift.BODY_TYPE.LEGS);
+  }
+
+  private Double roundMax(double max)  {
+    return Double.valueOf(Lift.getActualRounding(max));
+  }
+
+  public void switchUnits() {
+    lbs = !lbs;
+    double divisor = lbsToKg;
+    if (lbs)  {
+      divisor = 1 / divisor;
+    }
+    if (trainingMaxes.containsKey(Lift.BODY_TYPE.CHEST))  {
+      trainingMaxes.put(Lift.BODY_TYPE.CHEST, roundMax(trainingMaxes.get(Lift.BODY_TYPE.CHEST) / divisor));
+    }
+    if (trainingMaxes.containsKey(Lift.BODY_TYPE.BACK))  {
+      trainingMaxes.put(Lift.BODY_TYPE.BACK, roundMax(trainingMaxes.get(Lift.BODY_TYPE.BACK) / divisor));
+    }
+    if (trainingMaxes.containsKey(Lift.BODY_TYPE.SHOULDERS))  {
+      trainingMaxes.put(Lift.BODY_TYPE.SHOULDERS, roundMax(trainingMaxes.get(Lift.BODY_TYPE.SHOULDERS) / divisor));
+    }
+    if (trainingMaxes.containsKey(Lift.BODY_TYPE.LEGS))  {
+      trainingMaxes.put(Lift.BODY_TYPE.LEGS, roundMax(trainingMaxes.get(Lift.BODY_TYPE.LEGS) / divisor));
+    }
+
+    for (Lift lift : lifts) {
+      lift.switchUnits(lbs);
+    }
   }
 }

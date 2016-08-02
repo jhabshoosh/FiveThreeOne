@@ -58,9 +58,9 @@
         android:layout_marginTop="41dp"/>
 
     <Spinner
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
+        android:id="@+id/weekSpinner"
         android:layout_gravity="bottom"
         android:layout_weight="1"
         android:layout_below="@+id/legsOneRepMax"
@@ -88,7 +88,7 @@
         android:textSize="25dp"
         android:layout_gravity="left"
         android:layout_weight="1"
-        android:layout_below="@+id/spinner"
+        android:layout_below="@+id/weekSpinner"
         android:layout_centerHorizontal="true"/>
 
     <Button
@@ -114,5 +114,15 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/unitSpinner"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/chestOneRepMax"
+        android:layout_toEndOf="@+id/chestOneRepMax"/>
 
 </RelativeLayout>

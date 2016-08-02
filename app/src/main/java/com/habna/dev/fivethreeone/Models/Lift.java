@@ -2,6 +2,8 @@ package com.habna.dev.fivethreeone.Models;
 
 import android.util.Pair;
 
+import com.habna.dev.fivethreeone.PlanActivity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +101,8 @@ public class Lift implements Serializable {
 
     int setCount = 1;
     for (Pair<Double, Integer> set : sets)  {
-      StringBuilder setString = new StringBuilder("Set #" + setCount + ": " + getActualRounding(set.first) + " x " + set.second);
+      StringBuilder setString = new StringBuilder("Set #" + setCount + ": " +
+        getActualRounding(set.first) + (PlanActivity.plan.isLbs() ? " lbs" : " kg") + " x " + set.second);
       if (setCount == NUM_SETS) {
         setString.append("*");
       }
@@ -109,7 +112,7 @@ public class Lift implements Serializable {
     return setStrings;
   }
 
-  private long getActualRounding(double weight)  {
+  protected static long getActualRounding(double weight)  {
     long rounded = Math.round(weight);
     long nearestBase = rounded;
     int counter = 0;
@@ -125,5 +128,17 @@ public class Lift implements Serializable {
 
   public double getTrainingMax() {
     return trainingMax;
+  }
+
+  public void switchUnits(boolean lbs)  {
+    double divisor = Plan.lbsToKg;
+    if (lbs)  {
+      divisor = 1 / divisor;
+    }
+    List<Pair<Double, Integer>> newSet = new ArrayList<>();
+    for (Pair<Double, Integer> set : sets)  {
+      newSet.add(new Pair<Double, Integer>(set.first/divisor, set.second));
+    }
+    sets = newSet;
   }
 }

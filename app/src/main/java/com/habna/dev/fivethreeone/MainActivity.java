@@ -19,8 +19,6 @@ import android.widget.TextView;
 import com.habna.dev.fivethreeone.Models.Lift;
 import com.habna.dev.fivethreeone.Models.Plan;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,15 +28,21 @@ public class MainActivity extends AppCompatActivity {
     private int backMax;
     private int shouldersMax;
     private int legsMax;
-
     private Lift.WEEK_TYPE currentWeek;
 
     private final String TRAINING_MAX_PREFS_KEY = "TRAINING_MAX";
+    private final String UNIT_PREFS_KEY = "UNIT";
+
+
+    public static boolean lbs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences unitPrefs = getApplicationContext().getSharedPreferences(UNIT_PREFS_KEY, 0);
+        lbs = unitPrefs.getBoolean("UNIT", true);
 
         SharedPreferences sharedPreferences = getApplicationContext()
           .getSharedPreferences(TRAINING_MAX_PREFS_KEY, 0);
@@ -53,15 +57,23 @@ public class MainActivity extends AppCompatActivity {
             maxMap.put(Lift.BODY_TYPE.BACK, (double) backMax);
             maxMap.put(Lift.BODY_TYPE.SHOULDERS, (double) shouldersMax);
             maxMap.put(Lift.BODY_TYPE.LEGS, (double) legsMax);
-            Plan plan = new Plan(currentWeek, maxMap, true);
+            Plan plan = new Plan(currentWeek, maxMap, true, lbs);
             displayPlan(plan);
         }
 
-        final Spinner weekSpinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        final Spinner weekSpinner = (Spinner) findViewById(R.id.weekSpinner);
+        ArrayAdapter<CharSequence> weekSpinnerAdapter = ArrayAdapter.createFromResource(this,
           R.array.weeks_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        weekSpinner.setAdapter(adapter);
+        weekSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        weekSpinner.setAdapter(weekSpinnerAdapter);
+
+        final Spinner unitSpinner = (Spinner) findViewById(R.id.unitSpinner);
+        ArrayAdapter<CharSequence> unitSpinnerAdapter = ArrayAdapter.createFromResource(this,
+          R.array.units_array, android.R.layout.simple_spinner_item);
+        unitSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        unitSpinner.setAdapter(unitSpinnerAdapter);
+        unitSpinner.setSelection(unitSpinnerAdapter.getPosition(lbs ? "lbs" : "kg"));
+
 
         final CheckBox checkBox = (CheckBox) findViewById(R.id.trainingMaxCheckBox);
 
@@ -108,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     throw new RuntimeException("Impossible week type on spinner");
                 }
-                Plan plan = new Plan(weekType, oneRepMaxes, checkBox.isChecked());
+
+                lbs = unitSpinner.getSelectedItem().toString().equals("lbs") ? true : false;
+                Plan plan = new Plan(weekType, oneRepMaxes, checkBox.isChecked(), lbs);
                 saveTrainingMaxes(weekStr);
                 if (plan.doesLift()) {
                     displayPlan(plan);
