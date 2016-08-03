@@ -42,6 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
       SharedPreferences unitPrefs = getApplicationContext().getSharedPreferences(MainActivity.UNIT_PREFS_KEY, 0);
       SharedPreferences.Editor editor = unitPrefs.edit();
       editor.putBoolean("UNIT", MainActivity.lbs);
+      editor.apply();
       if (MainActivity.plan != null)  {
         PlanActivity.convertPlan();
       }

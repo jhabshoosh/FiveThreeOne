@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.habna.dev.fivethreeone.Models.Lift;
-
 public class PlanActivity extends AppCompatActivity {
 
   @Override
@@ -45,11 +43,11 @@ public class PlanActivity extends AppCompatActivity {
     TextView legsSet2 = (TextView) findViewById(R.id.legsSet2);
     TextView legsSet3 = (TextView) findViewById(R.id.legsSet3);
 
-    if (MainActivity.plan.doesHeEvenLift(Lift.BODY_TYPE.CHEST)) {
-      chestText.append(MainActivity.plan.getTrainingMaxDisplay(Lift.BODY_TYPE.CHEST));
-      chestSet1.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.CHEST).getSetString(1));
-      chestSet2.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.CHEST).getSetString(2));
-      chestSet3.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.CHEST).getSetString(3));
+    if (MainActivity.plan.doesHeEvenLift(Util.BODY_TYPE.CHEST)) {
+      chestText.append(MainActivity.plan.getTrainingMaxDisplay(Util.BODY_TYPE.CHEST));
+      chestSet1.setText(MainActivity.plan.getLift(Util.BODY_TYPE.CHEST).getSetString(1));
+      chestSet2.setText(MainActivity.plan.getLift(Util.BODY_TYPE.CHEST).getSetString(2));
+      chestSet3.setText(MainActivity.plan.getLift(Util.BODY_TYPE.CHEST).getSetString(3));
     }else {
       chestText.setText(R.string.no_chest);
       chestText.setTextColor(Color.RED);
@@ -58,11 +56,11 @@ public class PlanActivity extends AppCompatActivity {
       chestSet3.setVisibility(View.INVISIBLE);
     }
 
-    if (MainActivity.plan.doesHeEvenLift(Lift.BODY_TYPE.BACK))  {
-      backText.append(MainActivity.plan.getTrainingMaxDisplay(Lift.BODY_TYPE.BACK));
-      backSet1.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.BACK).getSetString(1));
-      backSet2.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.BACK).getSetString(2));
-      backSet3.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.BACK).getSetString(3));
+    if (MainActivity.plan.doesHeEvenLift(Util.BODY_TYPE.BACK))  {
+      backText.append(MainActivity.plan.getTrainingMaxDisplay(Util.BODY_TYPE.BACK));
+      backSet1.setText(MainActivity.plan.getLift(Util.BODY_TYPE.BACK).getSetString(1));
+      backSet2.setText(MainActivity.plan.getLift(Util.BODY_TYPE.BACK).getSetString(2));
+      backSet3.setText(MainActivity.plan.getLift(Util.BODY_TYPE.BACK).getSetString(3));
     }else {
       backText.setText(R.string.no_back);
       backText.setTextColor(Color.RED);
@@ -71,11 +69,11 @@ public class PlanActivity extends AppCompatActivity {
       backSet3.setVisibility(View.INVISIBLE);
     }
 
-    if (MainActivity.plan.doesHeEvenLift(Lift.BODY_TYPE.SHOULDERS)) {
-      shouldersText.append(MainActivity.plan.getTrainingMaxDisplay(Lift.BODY_TYPE.SHOULDERS));
-      shouldersSet1.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.SHOULDERS).getSetString(1));
-      shouldersSet2.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.SHOULDERS).getSetString(2));
-      shouldersSet3.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.SHOULDERS).getSetString(3));
+    if (MainActivity.plan.doesHeEvenLift(Util.BODY_TYPE.SHOULDERS)) {
+      shouldersText.append(MainActivity.plan.getTrainingMaxDisplay(Util.BODY_TYPE.SHOULDERS));
+      shouldersSet1.setText(MainActivity.plan.getLift(Util.BODY_TYPE.SHOULDERS).getSetString(1));
+      shouldersSet2.setText(MainActivity.plan.getLift(Util.BODY_TYPE.SHOULDERS).getSetString(2));
+      shouldersSet3.setText(MainActivity.plan.getLift(Util.BODY_TYPE.SHOULDERS).getSetString(3));
     }else {
       shouldersText.setText(R.string.no_shoulders);
       shouldersText.setTextColor(Color.RED);
@@ -84,11 +82,11 @@ public class PlanActivity extends AppCompatActivity {
       shouldersSet3.setVisibility(View.INVISIBLE);
     }
 
-    if (MainActivity.plan.doesHeEvenLift(Lift.BODY_TYPE.LEGS))  {
-      legsText.append(MainActivity.plan.getTrainingMaxDisplay(Lift.BODY_TYPE.LEGS));
-      legsSet1.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.BACK).getSetString(1));
-      legsSet2.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.BACK).getSetString(2));
-      legsSet3.setText(MainActivity.plan.getLift(Lift.BODY_TYPE.BACK).getSetString(3));
+    if (MainActivity.plan.doesHeEvenLift(Util.BODY_TYPE.LEGS))  {
+      legsText.append(MainActivity.plan.getTrainingMaxDisplay(Util.BODY_TYPE.LEGS));
+      legsSet1.setText(MainActivity.plan.getLift(Util.BODY_TYPE.BACK).getSetString(1));
+      legsSet2.setText(MainActivity.plan.getLift(Util.BODY_TYPE.BACK).getSetString(2));
+      legsSet3.setText(MainActivity.plan.getLift(Util.BODY_TYPE.BACK).getSetString(3));
     }else {
       legsText.setText(R.string.no_legs);
       legsText.setTextColor(Color.RED);
@@ -118,6 +116,8 @@ public class PlanActivity extends AppCompatActivity {
     });
 
   }
+
+
 
   /**
    * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -161,7 +161,7 @@ public class PlanActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  private String weekTypeToString(Lift.WEEK_TYPE weekType)    {
+  private String weekTypeToString(Util.WEEK_TYPE weekType)    {
     switch (weekType)   {
       case FIVE:
         return "5";
@@ -178,6 +178,12 @@ public class PlanActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
+  }
+
+  @Override
+  protected void onRestart() {
+    super.onRestart();
+    Util.refreshUnits(this, getIntent());
   }
 
   public static void convertPlan()  {

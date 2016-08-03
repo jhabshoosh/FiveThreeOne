@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.habna.dev.fivethreeone.Models.Lift;
 import com.habna.dev.fivethreeone.Models.Plan;
 
 import java.util.HashMap;
@@ -30,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private int backMax;
     private int shouldersMax;
     private int legsMax;
-    private Lift.WEEK_TYPE currentWeek;
+    private Util.WEEK_TYPE currentWeek;
+
+    private final String LBS_SUFFIX = " (lbs)";
+    private final String KG_SUFFIX = " (kg)";
 
     private static final String TRAINING_MAX_PREFS_KEY = "TRAINING_MAX";
     public static final String UNIT_PREFS_KEY = "UNIT";
@@ -58,12 +60,12 @@ public class MainActivity extends AppCompatActivity {
         legsMax = sharedPreferences.getInt("LEGS_MAX", -1);
         currentWeek = getWeekTypeByString(sharedPreferences.getString("WEEK_TYPE", ""));
         if (chestMax != -1 && backMax != -1 && shouldersMax != -1 && legsMax != -1 && currentWeek != null) {
-            Map<Lift.BODY_TYPE, Double> maxMap = new HashMap<>();
-            maxMap.put(Lift.BODY_TYPE.CHEST, (double) chestMax);
-            maxMap.put(Lift.BODY_TYPE.BACK, (double) backMax);
-            maxMap.put(Lift.BODY_TYPE.SHOULDERS, (double) shouldersMax);
-            maxMap.put(Lift.BODY_TYPE.LEGS, (double) legsMax);
-            plan = new Plan(currentWeek, maxMap, true, lbs);
+            Map<Util.BODY_TYPE, Double> maxMap = new HashMap<>();
+            maxMap.put(Util.BODY_TYPE.CHEST, (double) chestMax);
+            maxMap.put(Util.BODY_TYPE.BACK, (double) backMax);
+            maxMap.put(Util.BODY_TYPE.SHOULDERS, (double) shouldersMax);
+            maxMap.put(Util.BODY_TYPE.LEGS, (double) legsMax);
+            plan = new Plan(currentWeek, maxMap, true);
         }
 
         final Spinner weekSpinner = (Spinner) findViewById(R.id.weekSpinner);
@@ -74,51 +76,61 @@ public class MainActivity extends AppCompatActivity {
 
         final CheckBox checkBox = (CheckBox) findViewById(R.id.trainingMaxCheckBox);
 
+        EditText chestHint = (EditText) findViewById(R.id.chestOneRepMax);
+        EditText backHint = (EditText) findViewById(R.id.backOneRepMax);
+        EditText shouldersHint = (EditText) findViewById(R.id.shouldersOneRepMax);
+        EditText legsHint = (EditText) findViewById(R.id.legsOneRepMax);
+        String suffix = lbs ? LBS_SUFFIX : KG_SUFFIX;
+        chestHint.setHint(chestHint.getHint() + suffix);
+        backHint.setHint(backHint.getHint() + suffix);
+        shouldersHint.setHint(shouldersHint.getHint() + suffix);
+        legsHint.setHint(legsHint.getHint() + suffix);
+
         final Button submitButton = (Button) findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<Lift.BODY_TYPE, Double> oneRepMaxes = new HashMap<>();
+                Map<Util.BODY_TYPE, Double> oneRepMaxes = new HashMap<>();
 
                 EditText chest = (EditText) findViewById(R.id.chestOneRepMax);
                 chestMax = validateMax(chest.getText().toString());
                 if (chestMax != -1) {
-                    oneRepMaxes.put(Lift.BODY_TYPE.CHEST, (double) chestMax);
+                    oneRepMaxes.put(Util.BODY_TYPE.CHEST, (double) chestMax);
                 }
 
                 EditText back = (EditText) findViewById(R.id.backOneRepMax);
                 backMax = validateMax(back.getText().toString());
                 if (backMax != -1) {
-                    oneRepMaxes.put(Lift.BODY_TYPE.BACK, (double) backMax);
+                    oneRepMaxes.put(Util.BODY_TYPE.BACK, (double) backMax);
                 }
 
                 EditText shoulders = (EditText) findViewById(R.id.shouldersOneRepMax);
                 shouldersMax = validateMax(shoulders.getText().toString());
                 if (shouldersMax != -1) {
-                    oneRepMaxes.put(Lift.BODY_TYPE.SHOULDERS, (double) shouldersMax);
+                    oneRepMaxes.put(Util.BODY_TYPE.SHOULDERS, (double) shouldersMax);
                 }
 
                 EditText legs = (EditText) findViewById(R.id.legsOneRepMax);
                 legsMax = validateMax(legs.getText().toString());
                 if (legsMax != -1) {
-                    oneRepMaxes.put(Lift.BODY_TYPE.LEGS, (double) legsMax);
+                    oneRepMaxes.put(Util.BODY_TYPE.LEGS, (double) legsMax);
                 }
 
                 String weekStr = weekSpinner.getSelectedItem().toString().toUpperCase();
-                Lift.WEEK_TYPE weekType;
+                Util.WEEK_TYPE weekType;
                 if ("FIVE".equals(weekStr)) {
-                    weekType = Lift.WEEK_TYPE.FIVE;
+                    weekType = Util.WEEK_TYPE.FIVE;
                 } else if ("THREE".equals(weekStr)) {
-                    weekType = Lift.WEEK_TYPE.THREE;
+                    weekType = Util.WEEK_TYPE.THREE;
                 } else if ("ONE".equals(weekStr)) {
-                    weekType = Lift.WEEK_TYPE.ONE;
+                    weekType = Util.WEEK_TYPE.ONE;
                 } else if ("DELOAD".equals(weekStr)) {
-                    weekType = Lift.WEEK_TYPE.DELOAD;
+                    weekType = Util.WEEK_TYPE.DELOAD;
                 } else {
                     throw new RuntimeException("Impossible week type on spinner");
                 }
 
-                plan = new Plan(weekType, oneRepMaxes, checkBox.isChecked(), lbs);
+                plan = new Plan(weekType, oneRepMaxes, checkBox.isChecked());
                 saveTrainingMaxes(weekStr);
                 if (plan.doesLift()) {
                     displayPlan();
@@ -130,6 +142,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Util.refreshUnits(this, getIntent());
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -178,18 +198,18 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private Lift.WEEK_TYPE getWeekTypeByString(String weekStr)  {
+    private Util.WEEK_TYPE getWeekTypeByString(String weekStr)  {
         if (weekStr == "")  {
             return null;
         }
         if ("FIVE".equals(weekStr.toUpperCase())) {
-            return Lift.WEEK_TYPE.FIVE;
+            return Util.WEEK_TYPE.FIVE;
         }else if ("THREE".equals(weekStr.toUpperCase()))  {
-            return Lift.WEEK_TYPE.THREE;
+            return Util.WEEK_TYPE.THREE;
         }else if ("ONE".equals(weekStr.toUpperCase()))  {
-            return Lift.WEEK_TYPE.ONE;
+            return Util.WEEK_TYPE.ONE;
         }else if("DELOAD".equals(weekStr.toUpperCase())) {
-            return Lift.WEEK_TYPE.DELOAD;
+            return Util.WEEK_TYPE.DELOAD;
         }
         return null;
     }

@@ -3,6 +3,7 @@ package com.habna.dev.fivethreeone.Models;
 import android.util.Pair;
 
 import com.habna.dev.fivethreeone.MainActivity;
+import com.habna.dev.fivethreeone.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,35 +14,23 @@ import java.util.List;
  */
 public class Lift implements Serializable {
 
-  BODY_TYPE bodyType;
-  WEEK_TYPE weekType;
+  Util.BODY_TYPE bodyType;
+  Util.WEEK_TYPE weekType;
   double trainingMax;
   List<Pair<Double, Integer>> sets;
 
   protected final int NUM_SETS = 3;
 
-  public enum BODY_TYPE {
-    CHEST,
-    BACK,
-    SHOULDERS,
-    LEGS
-  };
+  ;
 
-  public enum WEEK_TYPE {
-    FIVE,
-    THREE,
-    ONE,
-    DELOAD
-  }
-
-  public Lift(BODY_TYPE bodyType, WEEK_TYPE dayType, double trainingMax) {
+  public Lift(Util.BODY_TYPE bodyType, Util.WEEK_TYPE dayType, double trainingMax) {
     this.bodyType = bodyType;
     this.weekType = dayType;
     this.trainingMax = trainingMax;
     calculateSets();
   }
 
-  public BODY_TYPE getBodyType() {
+  public Util.BODY_TYPE getBodyType() {
     return bodyType;
   }
 
@@ -51,7 +40,7 @@ public class Lift implements Serializable {
     for (int i = 0; i < NUM_SETS; i++)  {
       double weight = startingWeightMultiplier * trainingMax;
       int numReps = getNumReps(i+1);
-      sets.add(new Pair<Double, Integer>(weight, numReps));
+      sets.add(new Pair<>(weight, numReps));
       startingWeightMultiplier += .1;
     }
   }
@@ -102,7 +91,7 @@ public class Lift implements Serializable {
     int setCount = 1;
     for (Pair<Double, Integer> set : sets)  {
       StringBuilder setString = new StringBuilder("Set #" + setCount + ": " +
-        getActualRounding(set.first) + (MainActivity.plan.isLbs() ? " lbs" : " kg") + " x " + set.second);
+        Util.getActualRounding(set.first) + (MainActivity.lbs ? " lbs" : " kg") + " x " + set.second);
       if (setCount == NUM_SETS) {
         setString.append("*");
       }
@@ -110,20 +99,6 @@ public class Lift implements Serializable {
       setCount++;
     }
     return setStrings;
-  }
-
-  protected static long getActualRounding(double weight)  {
-    long rounded = Math.round(weight);
-    long nearestBase = rounded;
-    int counter = 0;
-    while (nearestBase % 5 != 0)  {
-      nearestBase--;
-      counter++;
-    }
-    if (counter > 2)  {
-      return nearestBase + 5;
-    }
-    return nearestBase;
   }
 
   public double getTrainingMax() {
@@ -137,13 +112,13 @@ public class Lift implements Serializable {
     }
     List<Pair<Double, Integer>> newSet = new ArrayList<>();
     for (Pair<Double, Integer> set : sets)  {
-      newSet.add(new Pair<Double, Integer>(set.first/divisor, set.second));
+      newSet.add(new Pair<>(set.first/divisor, set.second));
     }
     sets = newSet;
   }
 
   public String getSetString(int set) {
     final Pair<Double, Integer> setInfo = sets.get(set - 1);
-    return getActualRounding(setInfo.first) + (MainActivity.lbs ? " lbs" : " kg") + " x " + setInfo.second;
+    return Util.getActualRounding(setInfo.first) + (MainActivity.lbs ? " lbs" : " kg") + " x " + setInfo.second;
   }
 }

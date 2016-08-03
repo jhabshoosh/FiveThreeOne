@@ -1,11 +1,10 @@
 package com.habna.dev.fivethreeone.Models;
 
-import com.habna.dev.fivethreeone.Models.Lift.BODY_TYPE;
+import com.habna.dev.fivethreeone.Util.BODY_TYPE;
+import com.habna.dev.fivethreeone.Util;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Input: Maxs
@@ -61,9 +60,9 @@ public class Calculator {
 
   private void calculateTrainingMaxes()  {
     trainingMaxes = new HashMap<>();
-    trainingMaxes.put(BODY_TYPE.CHEST, benchMax*.9);
-    trainingMaxes.put(BODY_TYPE.BACK, deadliftMax*.9);
-    trainingMaxes.put(BODY_TYPE.SHOULDERS, ohpMax*.9);
-    trainingMaxes.put(BODY_TYPE.LEGS, squatMax*.9);
+    trainingMaxes.put(Util.BODY_TYPE.CHEST, benchMax*.9);
+    trainingMaxes.put(Util.BODY_TYPE.BACK, deadliftMax*.9);
+    trainingMaxes.put(Util.BODY_TYPE.SHOULDERS, ohpMax*.9);
+    trainingMaxes.put(Util.BODY_TYPE.LEGS, squatMax*.9);
   }
 }
