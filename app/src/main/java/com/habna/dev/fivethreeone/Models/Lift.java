@@ -119,6 +119,7 @@ public class Lift implements Serializable {
 
   public String getSetString(int set) {
     final Pair<Double, Integer> setInfo = sets.get(set - 1);
-    return Util.getActualRounding(setInfo.first) + (MainActivity.lbs ? " lbs" : " kg") + " x " + setInfo.second;
+    return Util.getActualRounding(setInfo.first) + (MainActivity.lbs ? " lbs" : " kg") + " x " +
+      setInfo.second + (set == 3 && !weekType.equals(Util.WEEK_TYPE.DELOAD) ? "*" : "");
   }
 }
