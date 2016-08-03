@@ -25,17 +25,14 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     public static Plan plan;
-    private int chestMax;
-    private int backMax;
-    private int shouldersMax;
-    private int legsMax;
+    private float chestMax;
+    private float backMax;
+    private float shouldersMax;
+    private float legsMax;
     private Util.WEEK_TYPE currentWeek;
 
     private final String LBS_SUFFIX = " (lbs)";
     private final String KG_SUFFIX = " (kg)";
-
-    private static final String TRAINING_MAX_PREFS_KEY = "TRAINING_MAX";
-    public static final String UNIT_PREFS_KEY = "UNIT";
 
 
     public static boolean lbs;
@@ -49,22 +46,30 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences unitPrefs = getApplicationContext().getSharedPreferences(UNIT_PREFS_KEY, 0);
+        SharedPreferences unitPrefs = getApplicationContext().getSharedPreferences(Util.UNIT_PREFS_KEY, 0);
         lbs = unitPrefs.getBoolean("UNIT", true);
 
         SharedPreferences sharedPreferences = getApplicationContext()
-          .getSharedPreferences(TRAINING_MAX_PREFS_KEY, 0);
-        chestMax = sharedPreferences.getInt("CHEST_MAX", -1);
-        backMax = sharedPreferences.getInt("BACK_MAX", -1);
-        shouldersMax = sharedPreferences.getInt("SHOULDERS_MAX", -1);
-        legsMax = sharedPreferences.getInt("LEGS_MAX", -1);
+          .getSharedPreferences(Util.TRAINING_MAX_PREFS_KEY, 0);
+        chestMax = sharedPreferences.getFloat("CHEST_MAX", -1);
+        backMax = sharedPreferences.getFloat("BACK_MAX", -1);
+        shouldersMax = sharedPreferences.getFloat("SHOULDERS_MAX", -1);
+        legsMax = sharedPreferences.getFloat("LEGS_MAX", -1);
         currentWeek = getWeekTypeByString(sharedPreferences.getString("WEEK_TYPE", ""));
-        if (chestMax != -1 && backMax != -1 && shouldersMax != -1 && legsMax != -1 && currentWeek != null) {
+        if ((chestMax != -1 || backMax != -1 || shouldersMax != -1 || legsMax != -1) && currentWeek != null) {
             Map<Util.BODY_TYPE, Double> maxMap = new HashMap<>();
-            maxMap.put(Util.BODY_TYPE.CHEST, (double) chestMax);
-            maxMap.put(Util.BODY_TYPE.BACK, (double) backMax);
-            maxMap.put(Util.BODY_TYPE.SHOULDERS, (double) shouldersMax);
-            maxMap.put(Util.BODY_TYPE.LEGS, (double) legsMax);
+            if (chestMax != -1) {
+                maxMap.put(Util.BODY_TYPE.CHEST, (double) chestMax);
+            }
+            if (backMax != -1) {
+                maxMap.put(Util.BODY_TYPE.BACK, (double) backMax);
+            }
+            if (shouldersMax != -1) {
+                maxMap.put(Util.BODY_TYPE.SHOULDERS, (double) shouldersMax);
+            }
+            if (legsMax != -1) {
+                maxMap.put(Util.BODY_TYPE.LEGS, (double) legsMax);
+            }
             plan = new Plan(currentWeek, maxMap, true);
         }
 
@@ -151,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -188,12 +195,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void saveTrainingMaxes(String weekStr)  {
         SharedPreferences sharedPreferences = getApplicationContext()
-          .getSharedPreferences(TRAINING_MAX_PREFS_KEY, 0);
+          .getSharedPreferences(Util.TRAINING_MAX_PREFS_KEY, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("CHEST_MAX", chestMax);
-        editor.putInt("BACK_MAX", backMax);
-        editor.putInt("SHOULDERS_MAX", shouldersMax);
-        editor.putInt("LEGS_MAX", legsMax);
+        editor.putFloat("CHEST_MAX", chestMax);
+        editor.putFloat("BACK_MAX", backMax);
+        editor.putFloat("SHOULDERS_MAX", shouldersMax);
+        editor.putFloat("LEGS_MAX", legsMax);
         editor.putString("WEEK_TYPE", weekStr);
         editor.apply();
     }

@@ -67,16 +67,21 @@ public class Plan implements Serializable {
     return null;
   }
 
+  public Map<Util.BODY_TYPE, Double> getTrainingMaxes() {
+    return trainingMaxes;
+  }
+
   public Util.WEEK_TYPE getWeekType() {
     return weekType;
   }
 
-  public void bumpWeek()  {
+  public Util.WEEK_TYPE bumpWeek()  {
     Util.WEEK_TYPE nextWeek = getNextWeek();
     if (Util.WEEK_TYPE.FIVE.equals(nextWeek)) {
       bumpMaxes();
     }
     init(nextWeek, trainingMaxes, true);
+    return nextWeek;
   }
 
   private void init(Util.WEEK_TYPE nextWeek, Map<Util.BODY_TYPE, Double> trainingMaxes,

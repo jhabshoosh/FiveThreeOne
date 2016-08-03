@@ -11,6 +11,9 @@ import java.math.RoundingMode;
  */
 public class Util {
 
+  public static final String UNIT_PREFS_KEY = "UNIT";
+  static final String TRAINING_MAX_PREFS_KEY = "TRAINING_MAX";
+
   public static double getActualRounding(double weight)  {
     if (MainActivity.lbs) {
       return getActualRoundingInLbs(weight);
@@ -42,6 +45,20 @@ public class Util {
   public static void refreshUnits(Activity activity, Intent intent) {
     activity.finish();
     activity.startActivity(intent);
+  }
+
+  public static String getWeekString(WEEK_TYPE weekType) {
+    switch (weekType) {
+      case FIVE:
+        return "FIVE";
+      case THREE:
+        return "THREE";
+      case ONE:
+        return "ONE";
+      case DELOAD:
+        return "DELOAD";
+    }
+    return null;
   }
 
   public enum BODY_TYPE {

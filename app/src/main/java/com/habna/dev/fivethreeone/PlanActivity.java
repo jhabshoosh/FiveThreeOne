@@ -1,6 +1,7 @@
 package com.habna.dev.fivethreeone;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Map;
 
 public class PlanActivity extends AppCompatActivity {
 
@@ -99,7 +102,8 @@ public class PlanActivity extends AppCompatActivity {
     bumpWeekButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        MainActivity.plan.bumpWeek();
+        Util.WEEK_TYPE nextWeek = MainActivity.plan.bumpWeek();
+        saveTrainingMaxes(Util.getWeekString(nextWeek));
         finish();
         startActivity(getIntent());
       }
@@ -116,8 +120,6 @@ public class PlanActivity extends AppCompatActivity {
     });
 
   }
-
-
 
   /**
    * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -188,6 +190,23 @@ public class PlanActivity extends AppCompatActivity {
 
   public static void convertPlan()  {
     MainActivity.plan.switchUnits();
+  }
+
+  private void saveTrainingMaxes(String weekStr)  {
+    SharedPreferences sharedPreferences = getApplicationContext()
+      .getSharedPreferences(Util.TRAINING_MAX_PREFS_KEY, 0);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    Map<Util.BODY_TYPE, Double> maxMap = MainActivity.plan.getTrainingMaxes();
+    editor.putFloat("CHEST_MAX", (maxMap.get(Util.BODY_TYPE.CHEST) != null) ?
+      Float.valueOf(maxMap.get(Util.BODY_TYPE.CHEST).toString()) : -1);
+    editor.putFloat("BACK_MAX", (maxMap.get(Util.BODY_TYPE.BACK) != null) ?
+      Float.valueOf(maxMap.get(Util.BODY_TYPE.BACK).toString()) : -1);
+    editor.putFloat("SHOULDERS_MAX", (maxMap.get(Util.BODY_TYPE.SHOULDERS) != null) ?
+      Float.valueOf(maxMap.get(Util.BODY_TYPE.SHOULDERS).toString()) : -1);
+    editor.putFloat("LEGS_MAX", (maxMap.get(Util.BODY_TYPE.LEGS) != null) ?
+      Float.valueOf(maxMap.get(Util.BODY_TYPE.LEGS).toString()) : -1);
+    editor.putString("WEEK_TYPE", weekStr);
+    editor.apply();
   }
 
 }

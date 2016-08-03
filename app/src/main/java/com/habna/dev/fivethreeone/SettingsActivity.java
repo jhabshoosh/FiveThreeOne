@@ -39,7 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
     boolean newUnit = selected.equals("lbs") ? true : false;
     if (newUnit != MainActivity.lbs)  {
       MainActivity.lbs = newUnit;
-      SharedPreferences unitPrefs = getApplicationContext().getSharedPreferences(MainActivity.UNIT_PREFS_KEY, 0);
+      SharedPreferences unitPrefs = getApplicationContext().getSharedPreferences(Util.UNIT_PREFS_KEY, 0);
       SharedPreferences.Editor editor = unitPrefs.edit();
       editor.putBoolean("UNIT", MainActivity.lbs);
       editor.apply();
