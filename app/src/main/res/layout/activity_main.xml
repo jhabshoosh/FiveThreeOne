@@ -1,128 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.habna.dev.fivethreeone.MainActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/chestOneRepMax"
-        android:layout_weight="1"
-        android:editable="true"
-        android:hint="Bench"
-        android:layout_marginTop="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/backOneRepMax"
-        android:layout_weight="1"
-        android:hint="Deadlift"
-        android:layout_below="@+id/chestOneRepMax"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="43dp"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/shouldersOneRepMax"
-        android:layout_weight="1"
-        android:hint="OHP"
-        android:layout_below="@+id/backOneRepMax"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="34dp"/>
+    </android.support.design.widget.AppBarLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/legsOneRepMax"
-        android:layout_weight="1"
-        android:hint="Squat"
-        android:layout_below="@+id/shouldersOneRepMax"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="41dp"/>
+    <include layout="@layout/content_main" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/weekSpinner"
-        android:layout_gravity="bottom"
-        android:layout_weight="1"
-        android:layout_below="@+id/legsOneRepMax"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/training_max_textbox"
-        android:textSize="14dp"
-        android:id="@+id/trainingMaxCheckBox"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/currentPlanButton"
-        android:layout_toStartOf="@+id/currentPlanButton" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/badInputText"
-        android:textSize="25dp"
-        android:layout_gravity="left"
-        android:layout_weight="1"
-        android:layout_below="@+id/weekSpinner"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Current Plan"
-        android:id="@+id/currentPlanButton"
-        android:layout_gravity="right"
-        android:layout_weight="1"
-        android:layout_alignTop="@+id/submitButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/legsOneRepMax"
-        android:layout_toRightOf="@id/legsOneRepMax"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/submitButton"
-        android:layout_weight="1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/unitSpinner"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/chestOneRepMax"
-        android:layout_toEndOf="@+id/chestOneRepMax"/>
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

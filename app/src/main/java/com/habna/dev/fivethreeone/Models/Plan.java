@@ -115,7 +115,7 @@ public class Plan implements Serializable {
       case THREE:
         return Lift.WEEK_TYPE.ONE;
       case ONE:
-        return Lift.WEEK_TYPE.DELOAD;
+        return Lift.WEEK_TYPE.FIVE;
       case DELOAD:
         return Lift.WEEK_TYPE.FIVE;
     }
@@ -123,7 +123,7 @@ public class Plan implements Serializable {
   }
 
   public String getTrainingMaxDisplay(Lift.BODY_TYPE bodyType) {
-    return "Training Max: " + trainingMaxes.get(bodyType).toString() + (lbs ? " lbs" : " kg");
+    return " " + trainingMaxes.get(bodyType).toString() + (lbs ? " lbs" : " kg");
   }
 
   public boolean doesHeEvenLift(Lift.BODY_TYPE bodyType)  {
@@ -161,5 +161,9 @@ public class Plan implements Serializable {
     for (Lift lift : lifts) {
       lift.switchUnits(lbs);
     }
+  }
+
+  public void doDeload()  {
+    init(Lift.WEEK_TYPE.DELOAD, trainingMaxes, true);
   }
 }

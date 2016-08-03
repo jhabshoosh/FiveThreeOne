@@ -12,8 +12,95 @@
     tools:context="com.habna.dev.fivethreeone.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/chestOneRepMax"
+        android:layout_weight="1"
+        android:hint="Bench max"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/backOneRepMax"
+        android:layout_weight="1"
+        android:hint="Deadlift max"
+        android:layout_below="@+id/chestOneRepMax"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/shouldersOneRepMax"
+        android:layout_weight="1"
+        android:hint="OHP max"
+        android:layout_below="@+id/backOneRepMax"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/legsOneRepMax"
+        android:layout_weight="1"
+        android:hint="Squat max"
+        android:layout_below="@+id/shouldersOneRepMax"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weekSpinner"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/training_max_textbox"
+        android:textSize="14dp"
+        android:id="@+id/trainingMaxCheckBox"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:layout_below="@+id/legsOneRepMax"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/badInputText"
+        android:textSize="25dp"
+        android:layout_gravity="left"
+        android:layout_weight="1"
+        android:layout_below="@+id/weekSpinner"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/submitButton"
+        android:layout_weight="1"
+        android:layout_below="@+id/badInputText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="59dp"/>
 </RelativeLayout>

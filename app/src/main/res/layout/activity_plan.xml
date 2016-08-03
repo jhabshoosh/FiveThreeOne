@@ -1,117 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.habna.dev.fivethreeone.PlanActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/weekTypeText"
-        android:textSize="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <Button
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:text="Chest"
-        android:id="@+id/chestButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/chestText"
-        android:textSize="18sp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="52dp"
-        android:layout_toRightOf="@+id/chestButton"
-        android:layout_toEndOf="@+id/chestButton"/>
-
-    <Button
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:id="@+id/backButton"
-        android:layout_above="@+id/shouldersButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="52dp"/>
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/backText"
-        android:textSize="18sp"
-        android:layout_alignBaseline="@+id/backButton"
-        android:layout_alignBottom="@+id/backButton"
-        android:layout_toRightOf="@+id/backButton"
-        android:layout_toEndOf="@+id/backButton"/>
-
-    <Button
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:text="Shoulders"
-        android:id="@+id/shouldersButton"
-        android:layout_gravity="bottom"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/shouldersText"
-        android:textSize="18sp"
-        android:layout_marginTop="40dp"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/shouldersButton"
-        android:layout_toEndOf="@+id/shouldersButton"/>
+    </android.support.design.widget.AppBarLayout>
 
 
-    <Button
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:text="Legs"
-        android:id="@+id/legsButton"
-        android:layout_column="0"
-        android:layout_above="@+id/bumpWeekButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="94dp"/>
+    <include layout="@layout/content_plan" />
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/legsText"
-        android:textSize="18sp"
-        android:layout_alignBottom="@+id/legsButton"
-        android:layout_toRightOf="@+id/legsButton"
-        android:layout_toEndOf="@+id/legsButton"
-        android:layout_marginBottom="14dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bump up week"
-        android:id="@+id/bumpWeekButton"
-        android:layout_column="8"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/planSwitchUnitButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+    <!--<Button-->
+        <!--android:layout_width="115dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Chest"-->
+        <!--android:id="@+id/chestButton"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginTop="40dp"/>-->
 
-</RelativeLayout>
+    <!--<TextView-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:id="@+id/chestText"-->
+        <!--android:textSize="18sp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginTop="52dp"-->
+        <!--android:layout_toRightOf="@+id/chestButton"-->
+        <!--android:layout_toEndOf="@+id/chestButton"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="115dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Back"-->
+        <!--android:id="@+id/backButton"-->
+        <!--android:layout_above="@+id/shouldersButton"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginBottom="52dp"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:id="@+id/backText"-->
+        <!--android:textSize="18sp"-->
+        <!--android:layout_alignBaseline="@+id/backButton"-->
+        <!--android:layout_alignBottom="@+id/backButton"-->
+        <!--android:layout_toRightOf="@+id/backButton"-->
+        <!--android:layout_toEndOf="@+id/backButton"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="115dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Shoulders"-->
+        <!--android:id="@+id/shouldersButton"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:id="@+id/shouldersText"-->
+        <!--android:textSize="18sp"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_toRightOf="@+id/shouldersButton"-->
+        <!--android:layout_toEndOf="@+id/shouldersButton"/>-->
+
+
+    <!--<Button-->
+        <!--android:layout_width="115dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Legs"-->
+        <!--android:id="@+id/legsButton"-->
+        <!--android:layout_column="0"-->
+        <!--android:layout_above="@+id/bumpWeekButton"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginBottom="94dp"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:id="@+id/legsText"-->
+        <!--android:textSize="18sp"-->
+        <!--android:layout_alignBottom="@+id/legsButton"-->
+        <!--android:layout_toRightOf="@+id/legsButton"-->
+        <!--android:layout_toEndOf="@+id/legsButton"-->
+        <!--android:layout_marginBottom="14dp"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Bump up week"-->
+        <!--android:id="@+id/bumpWeekButton"-->
+        <!--android:layout_column="8"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"/>-->
+
+    <!--<Button-->
+        <!--style="?android:attr/buttonStyleSmall"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/planSwitchUnitButton"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"/>-->
+
+</android.support.design.widget.CoordinatorLayout>

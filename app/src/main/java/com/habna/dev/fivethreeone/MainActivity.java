@@ -2,10 +2,11 @@ package com.habna.dev.fivethreeone;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,14 +25,15 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static Plan plan;
     private int chestMax;
     private int backMax;
     private int shouldersMax;
     private int legsMax;
     private Lift.WEEK_TYPE currentWeek;
 
-    private final String TRAINING_MAX_PREFS_KEY = "TRAINING_MAX";
-    private final String UNIT_PREFS_KEY = "UNIT";
+    private static final String TRAINING_MAX_PREFS_KEY = "TRAINING_MAX";
+    public static final String UNIT_PREFS_KEY = "UNIT";
 
 
     public static boolean lbs;
@@ -40,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupActionBar();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         SharedPreferences unitPrefs = getApplicationContext().getSharedPreferences(UNIT_PREFS_KEY, 0);
         lbs = unitPrefs.getBoolean("UNIT", true);
@@ -57,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
             maxMap.put(Lift.BODY_TYPE.BACK, (double) backMax);
             maxMap.put(Lift.BODY_TYPE.SHOULDERS, (double) shouldersMax);
             maxMap.put(Lift.BODY_TYPE.LEGS, (double) legsMax);
-            Plan plan = new Plan(currentWeek, maxMap, true, lbs);
-            displayPlan(plan);
+            plan = new Plan(currentWeek, maxMap, true, lbs);
         }
 
         final Spinner weekSpinner = (Spinner) findViewById(R.id.weekSpinner);
@@ -66,14 +71,6 @@ public class MainActivity extends AppCompatActivity {
           R.array.weeks_array, android.R.layout.simple_spinner_item);
         weekSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         weekSpinner.setAdapter(weekSpinnerAdapter);
-
-        final Spinner unitSpinner = (Spinner) findViewById(R.id.unitSpinner);
-        ArrayAdapter<CharSequence> unitSpinnerAdapter = ArrayAdapter.createFromResource(this,
-          R.array.units_array, android.R.layout.simple_spinner_item);
-        unitSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        unitSpinner.setAdapter(unitSpinnerAdapter);
-        unitSpinner.setSelection(unitSpinnerAdapter.getPosition(lbs ? "lbs" : "kg"));
-
 
         final CheckBox checkBox = (CheckBox) findViewById(R.id.trainingMaxCheckBox);
 
@@ -121,26 +118,15 @@ public class MainActivity extends AppCompatActivity {
                     throw new RuntimeException("Impossible week type on spinner");
                 }
 
-                lbs = unitSpinner.getSelectedItem().toString().equals("lbs") ? true : false;
-                Plan plan = new Plan(weekType, oneRepMaxes, checkBox.isChecked(), lbs);
+                plan = new Plan(weekType, oneRepMaxes, checkBox.isChecked(), lbs);
                 saveTrainingMaxes(weekStr);
                 if (plan.doesLift()) {
-                    displayPlan(plan);
+                    displayPlan();
                 } else {
                     final TextView badInputText = (TextView) findViewById(R.id.badInputText);
                     badInputText.setText("Do you even lift?");
                     badInputText.setTextColor(Color.RED);
                 }
-            }
-        });
-
-        final Button planButton = (Button) findViewById(R.id.currentPlanButton);
-        planButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayPlan(PlanActivity.plan);
-                finish();
-                startActivity(getIntent());
             }
         });
     }
@@ -149,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem homeItem = menu.findItem(R.id.action_home);
+        homeItem.setVisible(false);
+        MenuItem currentPlanItem = menu.findItem(R.id.action_currentPlan);
+        currentPlanItem.setVisible(displayCurrentPlanItem());
         return true;
     }
 
@@ -161,14 +151,17 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
             return true;
+        }else if (id == R.id.action_currentPlan)    {
+            displayPlan();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void displayPlan(Plan plan) {
-        PlanActivity.plan = plan;
+    private void displayPlan() {
         Intent intent = new Intent(MainActivity.this, PlanActivity.class);
         startActivity(intent);
     }
@@ -210,4 +203,20 @@ public class MainActivity extends AppCompatActivity {
         }
         return result;
     }
+
+    /**
+     * Set up the {@link android.app.ActionBar}, if the API is available.
+     */
+    private void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            // Show the Up button in the action bar.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private static boolean displayCurrentPlanItem()    {
+        return MainActivity.plan != null;
+    }
+
 }

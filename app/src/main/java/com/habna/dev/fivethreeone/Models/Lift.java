@@ -2,7 +2,7 @@ package com.habna.dev.fivethreeone.Models;
 
 import android.util.Pair;
 
-import com.habna.dev.fivethreeone.PlanActivity;
+import com.habna.dev.fivethreeone.MainActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -102,7 +102,7 @@ public class Lift implements Serializable {
     int setCount = 1;
     for (Pair<Double, Integer> set : sets)  {
       StringBuilder setString = new StringBuilder("Set #" + setCount + ": " +
-        getActualRounding(set.first) + (PlanActivity.plan.isLbs() ? " lbs" : " kg") + " x " + set.second);
+        getActualRounding(set.first) + (MainActivity.plan.isLbs() ? " lbs" : " kg") + " x " + set.second);
       if (setCount == NUM_SETS) {
         setString.append("*");
       }
@@ -140,5 +140,10 @@ public class Lift implements Serializable {
       newSet.add(new Pair<Double, Integer>(set.first/divisor, set.second));
     }
     sets = newSet;
+  }
+
+  public String getSetString(int set) {
+    final Pair<Double, Integer> setInfo = sets.get(set - 1);
+    return getActualRounding(setInfo.first) + (MainActivity.lbs ? " lbs" : " kg") + " x " + setInfo.second;
   }
 }

@@ -7,4 +7,14 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_currentPlan"
+        android:orderInCategory="50"
+        android:title="@string/action_currentPlan_string"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_home"
+        android:orderInCategory="60"
+        android:title="@string/action_home_string"
+        app:showAsAction="ifRoom" />
 </menu>
