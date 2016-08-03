@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_currentPlan_string">Current Plan</string>
     <string name="action_home_string">New Plan</string>
-    <string name="title_activity_plan">PlanActivity</string>
+    <string name="title_activity_plan">Current Plan</string>
     <string name="training_max_textbox">Training Maxes</string>
 
     <string name="title_activity_lift">LiftActivity</string>
