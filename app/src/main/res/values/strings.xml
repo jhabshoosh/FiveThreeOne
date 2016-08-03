@@ -10,10 +10,10 @@
     <string name="title_activity_in_progress">InProgress</string>
     <string name="title_activity_settings">Settings</string>
 
-    <string name="no_chest">Why would you not bench?</string>
-    <string name="no_back">Not even sumos bro?</string>
-    <string name="no_shoulders">You trap-less fuck</string>
-    <string name="no_legs">Skipping legs? Nice.</string>
+    <string name="no_chest">Please delete this app</string>
+    <string name="no_back">Deadlifts are <i>really bad</i> for your back anyway</string>
+    <string name="no_shoulders">No tanks for you bro</string>
+    <string name="no_legs">It\'s OK maybe next week</string>
 
     <!-- Strings related to Settings -->
     <string-array name="weeks_array">
