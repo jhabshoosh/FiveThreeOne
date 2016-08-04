@@ -110,6 +110,11 @@ public class PlanActivity extends AppCompatActivity {
     });
 
     final Button deloadButton = (Button) findViewById(R.id.deloadButton);
+    if (MainActivity.plan.getWeekType().equals(Util.WEEK_TYPE.ONE))  {
+      deloadButton.setEnabled(true);
+    }else {
+      deloadButton.setEnabled(false);
+    }
     deloadButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

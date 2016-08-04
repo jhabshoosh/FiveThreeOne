@@ -17,16 +17,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/weekTypeText"
-        android:textSize="150dp"
-        android:layout_below="@+id/backSet2"
-        android:layout_toRightOf="@+id/bumpWeekButton"
-        android:layout_toEndOf="@+id/bumpWeekButton"/>
+        android:textSize="75dp"
+        android:text="5"
+        android:layout_below="@+id/legsSet3"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/chestHeaderString"
+        android:textSize="18dp"
         android:id="@+id/chestHeader"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set1"
         android:id="@+id/chestSet1"
         android:layout_below="@+id/chestHeader"
@@ -45,7 +45,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set2"
         android:id="@+id/chestSet2"
         android:layout_below="@+id/chestSet1"
@@ -55,7 +55,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set3"
         android:id="@+id/chestSet3"
         android:layout_below="@+id/chestSet2"
@@ -65,18 +65,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="18dp"
         android:text="@string/backHeaderString"
         android:id="@+id/backHeader"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/chestSet3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="33dp"/>
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set1"
         android:id="@+id/backSet1"
         android:layout_below="@+id/backHeader"
@@ -86,7 +86,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set2"
         android:id="@+id/backSet2"
         android:layout_below="@+id/backSet1"
@@ -96,7 +96,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set3"
         android:id="@+id/backSet3"
         android:layout_below="@+id/backSet2"
@@ -106,100 +106,101 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="18dp"
         android:text="@string/shouldersHeaderString"
         android:id="@+id/shouldersHeader"
         android:layout_below="@+id/backSet3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="44dp"/>
+        android:layout_marginTop="23dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set1"
         android:id="@+id/shouldersSet1"
         android:layout_below="@+id/shouldersHeader"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignLeft="@+id/shouldersHeader"
+        android:layout_alignStart="@+id/shouldersHeader"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set2"
         android:id="@+id/shouldersSet2"
         android:layout_below="@+id/shouldersSet1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignLeft="@+id/shouldersSet1"
+        android:layout_alignStart="@+id/shouldersSet1"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set3"
         android:id="@+id/shouldersSet3"
         android:layout_below="@+id/shouldersSet2"
+        android:layout_alignLeft="@+id/shouldersSet2"
+        android:layout_alignStart="@+id/shouldersSet2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text="@string/legsHeaderString"
+        android:id="@+id/legsHeader"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/shouldersSet3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/legsHeaderString"
-        android:id="@+id/legsHeader"
-        android:layout_below="@+id/shouldersSet3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="32dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set1"
         android:id="@+id/legsSet1"
         android:layout_below="@+id/legsHeader"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignLeft="@+id/legsHeader"
+        android:layout_alignStart="@+id/legsHeader"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set2"
         android:id="@+id/legsSet2"
         android:layout_below="@+id/legsSet1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignLeft="@+id/legsSet1"
+        android:layout_alignStart="@+id/legsSet1"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14dp"
         android:text="@string/set3"
         android:id="@+id/legsSet3"
         android:layout_below="@+id/legsSet2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignLeft="@+id/legsSet2"
+        android:layout_alignStart="@+id/legsSet2"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bumpButtonString"
         android:id="@+id/bumpWeekButton"
-        android:layout_alignTop="@+id/deloadButton"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="43dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/deloadButtonString"
         android:id="@+id/deloadButton"
-        android:layout_below="@+id/legsSet2"
+        android:layout_alignTop="@+id/bumpWeekButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
-
 </RelativeLayout>
